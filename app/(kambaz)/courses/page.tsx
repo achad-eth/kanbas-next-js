@@ -5,7 +5,7 @@ export default function Courses() {
     <div id="wd-courses">
       <h1>Courses</h1>
       <ul>
-        <li><Link href="/courses/1234">CS1234 React JS</Link></li>
+        <li><Link href="/courses/1234">CS Class</Link></li>
       </ul>
     </div>
   );
