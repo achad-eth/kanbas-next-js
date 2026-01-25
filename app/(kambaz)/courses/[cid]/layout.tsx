@@ -1,30 +1,26 @@
 import CourseNavigation from "./Navigation";
 
-export default function CourseLayout({
+export default async function CourseLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { cid: string };
+  params: Promise<{ cid: string }>;
 }) {
-  return (
-    <div>
-      {}
-      <h1>CS Course {params.cid}</h1>
-      <hr />
+  const { cid } = await params;
 
-      <table width="100%">
-        <tbody>
-          <tr>
-            <td valign="top">
-              <CourseNavigation cid={params.cid} />
-            </td>
-            <td valign="top" width="100%">
-              {children}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  return (
+    <table>
+      <tbody>
+        <tr>
+          <td valign="top">
+            <CourseNavigation cid={cid} />
+          </td>
+          <td valign="top" width="100%">
+            {children}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   );
 }
