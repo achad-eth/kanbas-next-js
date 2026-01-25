@@ -10,17 +10,24 @@ export default async function CourseLayout({
   const { cid } = await params;
 
   return (
-    <table>
-      <tbody>
-        <tr>
-          <td valign="top">
-            <CourseNavigation cid={cid} />
-          </td>
-          <td valign="top" width="100%">
-            {children}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      {}
+      <h2>CS Course {cid}</h2>
+      <hr />
+
+      {}
+      <table width="100%">
+        <tbody>
+          <tr>
+            <td valign="top" width="200">
+              <CourseNavigation cid={cid} />
+            </td>
+            <td valign="top" width="100%">
+              {children}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }
