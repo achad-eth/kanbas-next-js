@@ -1,22 +1,25 @@
-// export default function Labs() {
-//   return (
-//     <div id="wd-labs">
-//       <h1>Labs</h1>
+import Link from "next/link";
 
-//       <p>
-//         <strong>Aryn Chadha</strong>
-//       </p>
-//     </div>
-//   );
-// }
-
-export default function LabsPage() {
+export default function LabsHome() {
   return (
-    <div className="p-4">
+    <div id="wd-labs-home" style={{ padding: "24px" }}>
       <h1>Labs</h1>
+      <h3 className="mb-4">Aryn Chadha</h3>
+
       <ul>
-        <li><a href="/labs/lab2">Lab 2</a></li>
+        <li>
+          <Link href="/labs/lab1">Lab 1</Link>
+        </li>
+        <li>
+          <Link href="/labs/lab2">Lab 2</Link>
+        </li>
+        <li>
+          <Link href="/labs/lab3">Lab 3</Link>
+        </li>
       </ul>
+
+      <hr />
+
     </div>
   );
 }
