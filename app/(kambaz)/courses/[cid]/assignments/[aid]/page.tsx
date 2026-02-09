@@ -1,137 +1,106 @@
-export default function AssignmentEditor({
-  params,
-}: {
-  params: { cid: string; aid: string };
-}) {
+"use client";
+
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { Button, Col, Form, FormControl, FormGroup, FormLabel, Row } from "react-bootstrap";
+
+export default function AssignmentEditor() {
+  const params = useParams<{ cid: string; aid: string }>();
+  const cid = params?.cid ?? "1234";
+
   return (
-    <div id="wd-assignment-editor">
-      <h2>Assignment Name</h2>
-
-      <input defaultValue="A1 - ENV + HTML" />
-      <br />
-      <br />
-
-      <textarea
-        cols={70}
-        rows={10}
-        defaultValue={`The assignment is available online Submit a link to the landing page of your Web application running on Netlify. The landing page should include the following: Your full name and section Links to each of the labs assignments Link to the Kanbas application Links to all relevant source code repositories The Kanbas application should include a link to navigate back to the landing page.`}
-      />
-
-      <br />
-      <br />
-
-      <div>
-        <label style={{ display: "inline-block", width: "120px" }}>Points</label>
-        <input defaultValue={100} />
-      </div>
-
-      <br />
-
-      <div>
-        <label style={{ display: "inline-block", width: "120px" }}>
-          Assignment Group
-        </label>
-        <select defaultValue="ASSIGNMENTS">
-          <option value="ASSIGNMENTS">ASSIGNMENTS</option>
-          <option value="QUIZZES">QUIZZES</option>
-          <option value="TESTS">TESTS</option>
-          <option value="PROJECTS">PROJECTS</option>
-        </select>
-      </div>
-
-      <br />
-
-      <div>
-        <label style={{ display: "inline-block", width: "120px" }}>
-          Display Grade as
-        </label>
-        <select defaultValue="PERCENTAGE">
-          <option value="PERCENTAGE">Percentage</option>
-          <option value="POINTS">Points</option>
-          <option value="LETTER">Letter</option>
-        </select>
-      </div>
-
-      <br />
-
-      <div>
-        <label style={{ display: "inline-block", width: "120px" }}>
-          Submission Type
-        </label>
-        <select defaultValue="ONLINE">
-          <option value="ONLINE">Online</option>
-          <option value="IN_PERSON">In-Person</option>
-        </select>
-      </div>
-
-      <br />
-
-      <div style={{ marginLeft: "120px" }}>
-        <h4>Online Entry Options</h4>
-
+    <div id="wd-assignment-editor" className="pb-5" style={{ maxWidth: 900 }}>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2 className="m-0">Assignment Editor</h2>
         <div>
-          <input type="checkbox" id="wd-text-entry" />
-          <label htmlFor="wd-text-entry"> Text Entry</label>
-        </div>
-
-        <div>
-          <input type="checkbox" id="wd-website-url" />
-          <label htmlFor="wd-website-url"> Website URL</label>
-        </div>
-
-        <div>
-          <input type="checkbox" id="wd-media-recordings" />
-          <label htmlFor="wd-media-recordings"> Media Recordings</label>
-        </div>
-
-        <div>
-          <input type="checkbox" id="wd-student-annotation" />
-          <label htmlFor="wd-student-annotation"> Student Annotation</label>
-        </div>
-
-        <div>
-          <input type="checkbox" id="wd-file-uploads" />
-          <label htmlFor="wd-file-uploads"> File Uploads</label>
+          <Link
+            href={`/courses/${cid}/assignments`}
+            className="btn btn-secondary me-2"
+            id="wd-cancel-assignment-btn"
+          >
+            Cancel
+          </Link>
+          <Link
+            href={`/courses/${cid}/assignments`}
+            className="btn btn-danger"
+            id="wd-save-assignment-btn"
+          >
+            Save
+          </Link>
         </div>
       </div>
 
-      <br />
+      <Form>
+        <FormGroup className="mb-3">
+          <FormLabel>Assignment Name</FormLabel>
+          <FormControl id="wd-assignment-name" defaultValue="A1 - ENV + HTML" />
+        </FormGroup>
 
-      <div style={{ marginLeft: "120px" }}>
-        <div>
-          <label style={{ display: "inline-block", width: "110px" }}>
-            Assign to
-          </label>
-          <input defaultValue="Everyone" />
-        </div>
+        <FormGroup className="mb-3">
+          <FormLabel>Description</FormLabel>
+          <FormControl
+            id="wd-assignment-description"
+            as="textarea"
+            rows={6}
+            defaultValue="This assignment covers environment setup and basic HTML structure."
+          />
+        </FormGroup>
 
-        <br />
+        <Row className="mb-3">
+          <Col md={4}>
+            <FormGroup>
+              <FormLabel>Points</FormLabel>
+              <FormControl id="wd-assignment-points" type="number" defaultValue={100} />
+            </FormGroup>
+          </Col>
+        </Row>
 
-        <div>
-          <label style={{ display: "inline-block", width: "110px" }}>Due</label>
-          <input type="date" defaultValue="2024-05-13" />
-        </div>
+        <Row className="mb-3">
+          <Col md={4}>
+            <FormGroup>
+              <FormLabel>Due Date</FormLabel>
+              <FormControl id="wd-assignment-due-date" type="date" defaultValue="2026-05-13" />
+            </FormGroup>
+          </Col>
+          <Col md={4}>
+            <FormGroup>
+              <FormLabel>Available From</FormLabel>
+              <FormControl id="wd-assignment-available-from" type="date" defaultValue="2026-05-06" />
+            </FormGroup>
+          </Col>
+          <Col md={4}>
+            <FormGroup>
+              <FormLabel>Available Until</FormLabel>
+              <FormControl id="wd-assignment-available-until" type="date" defaultValue="2026-05-20" />
+            </FormGroup>
+          </Col>
+        </Row>
 
-        <br />
+        <FormGroup className="mb-4">
+          <FormLabel>Submission Type</FormLabel>
+          <Form.Select id="wd-assignment-submission-type" defaultValue="ONLINE">
+            <option value="ONLINE">Online</option>
+            <option value="ON_PAPER">On Paper</option>
+            <option value="NO_SUBMISSION">No Submission</option>
+          </Form.Select>
+        </FormGroup>
 
-        <div>
-          <label style={{ display: "inline-block", width: "110px" }}>
-            Available from
-          </label>
-          <input type="date" defaultValue="2024-05-06" />
-          <span style={{ display: "inline-block", width: "30px" }} />
-          <label style={{ display: "inline-block", width: "40px" }}>Until</label>
-          <input type="date" defaultValue="2024-05-20" />
-        </div>
-
-        <br />
-        <hr />
-
-        <div style={{ textAlign: "right" }}>
-          <button>Cancel</button>{" "}
-          <button>Save</button>
-        </div>
-      </div>
+<div className="d-flex justify-content-end">
+  <Link
+    href={`/courses/${cid}/assignments`}
+    className="btn btn-secondary me-2"
+    id="wd-cancel-assignment-btn"
+  >
+    Cancel
+  </Link>
+  <Link
+    href={`/courses/${cid}/assignments`}
+    className="btn btn-danger"
+    id="wd-save-assignment-btn"
+  >
+    Save
+  </Link>
+</div>      </Form>
     </div>
   );
 }

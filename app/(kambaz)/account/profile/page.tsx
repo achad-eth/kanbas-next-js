@@ -1,27 +1,26 @@
+"use client";
+
+import { FormControl, Button } from "react-bootstrap";
 import Link from "next/link";
 
 export default function Profile() {
   return (
-    <div id="wd-profile-screen">
-      <h3>Profile</h3>
+    <div id="wd-profile-screen" style={{ maxWidth: 400 }}>
+      <h1>Profile</h1>
 
-      <input defaultValue="Aryn" placeholder="username" className="wd-username" /><br />
-      <input defaultValue="199" placeholder="password" type="password" className="wd-password" /><br />
+      <FormControl placeholder="username" className="mb-2" />
+      <FormControl placeholder="password" type="password" className="mb-2" />
+      <FormControl placeholder="first name" className="mb-2" />
+      <FormControl placeholder="last name" className="mb-2" />
+      <FormControl placeholder="email" className="mb-3" />
 
-      <input defaultValue="Aryn" placeholder="First Name" id="wd-firstname" /><br />
-      <input defaultValue="Chadha" placeholder="Last Name" id="wd-lastname" /><br />
-      <input defaultValue="2003-01-10" type="date" id="wd-dob" /><br />
-      <input defaultValue="boom@aryn.com" type="email" id="wd-email" /><br />
+      <Button variant="danger" className="w-100 mb-2">
+        Save
+      </Button>
 
-      <select defaultValue="FACULTY" id="wd-role">
-        <option value="USER">User</option>
-        <option value="ADMIN">Admin</option>
-        <option value="FACULTY">Faculty</option>
-        <option value="STUDENT">Student</option>
-      </select>
-      <br />
-
-      <Link href="signin">Sign out</Link>
+      <Link href="/account/signin" className="btn btn-secondary w-100">
+        Sign out
+      </Link>
     </div>
   );
 }

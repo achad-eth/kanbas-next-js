@@ -1,33 +1,31 @@
+import { ReactNode } from "react";
+import { FaAlignJustify } from "react-icons/fa";
 import CourseNavigation from "./Navigation";
 
-export default async function CourseLayout({
+export default function CourseLayout({
   children,
   params,
 }: {
-  children: React.ReactNode;
-  params: Promise<{ cid: string }>;
+  children: ReactNode;
+  params: { cid: string };
 }) {
-  const { cid } = await params;
+  const { cid } = params;
 
   return (
-    <div>
-      {}
-      <h2>CS Course {cid}</h2>
+    <div id="wd-courses">
+      <h2 className="text-danger">
+        <FaAlignJustify className="me-4 fs-4 mb-1" />
+        Course {cid}
+      </h2>
       <hr />
 
-      {}
-      <table width="100%">
-        <tbody>
-          <tr>
-            <td valign="top" width="200">
-              <CourseNavigation cid={cid} />
-            </td>
-            <td valign="top" width="100%">
-              {children}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="d-flex">
+        <div className="d-none d-md-block me-4">
+          <CourseNavigation cid={cid} />
+        </div>
+
+        <div className="flex-fill">{children}</div>
+      </div>
     </div>
   );
 }
