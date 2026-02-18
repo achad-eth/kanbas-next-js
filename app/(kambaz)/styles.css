@@ -1,0 +1,169 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body * {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (min-width: 768px) {
+  #wd-kambaz .wd-main-content-offset {
+    padding-left: 130px !important;
+  }
+}
+
+.list-group.wd > .list-group-item.active {
+  color: black;
+  background-color: white;
+  border-left: 3px solid black !important;
+}
+
+/* Modules styling helpers */
+#wd-modules .list-group-item {
+  border-radius: 0;
+}
+
+.border-gray {
+  border: 1px solid gray;
+}
+
+.btn-secondary {
+  --bs-btn-color: #000 !important;
+  --bs-btn-bg: #c7cdd1 !important;
+  --bs-btn-border-color: #c7cdd1 !important;
+  --bs-btn-hover-color: #fff !important;
+}
+
+.bg-secondary {
+  --bs-secondary-rgb: 199, 205, 209;
+}
+
+.list-group-item {
+  --bs-list-group-border-color: gray;
+}
+
+.wd-lesson {
+  border-left: 3px solid green !important;
+}
+
+#wd-modules .list-group-item {
+  display: flex;
+  align-items: center;
+}
+
+#wd-modules .list-group-item > div,
+#wd-modules .list-group-item > span,
+#wd-modules .list-group-item > a {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.wd-module-controls,
+.wd-modules-controls,
+.wd-modules-status {
+  flex: 0 0 auto;
+}
+
+#wd-courses .flex-fill,
+#wd-courses .flex-grow-1,
+#wd-kambaz .flex-fill,
+#wd-kambaz .flex-grow-1 {
+  min-width: 0;
+}
+
+#wd-modules-controls,
+#wd-modules {
+  clear: both;
+}
+
+@media (max-width: 575.98px) {
+  #wd-modules-controls {
+    justify-content: center;
+  }
+
+  #wd-modules-controls .btn,
+  #wd-modules-controls .dropdown {
+    width: auto;
+    flex: 0 0 auto;
+  }
+}
+
+#wd-modules > .list-group-item.wd-module {
+  display: block !important;
+}
+
+#wd-modules .wd-lessons > .list-group-item.wd-lesson {
+  display: flex;
+  align-items: center;
+}
+
+#wd-modules .wd-lessons > .list-group-item.wd-lesson > div,
+#wd-modules .wd-lessons > .list-group-item.wd-lesson > span,
+#wd-modules .wd-lessons > .list-group-item.wd-lesson > a {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+
+#wd-assignments-list {
+  border: 1px solid gray;
+}
+
+#wd-assignments-list .wd-assignments-header {
+  background-color: #c7cdd1 !important;
+  border-bottom: 1px solid gray !important;
+}
+
+.wd-assignments-percent {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.wd-assignments-square-btn {
+  width: 40px;
+  height: 34px;
+  border: 1px solid #111;
+  background: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.wd-assignment-row {
+  border: 0 !important;
+  border-top: 1px solid gray !important;
+  padding: 0 !important;
+}
+
+.wd-assignment-row > .d-flex {
+  padding: 16px 18px;
+}
+
+.wd-assignment-link {
+  color: black;
+  font-size: 22px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.wd-assignment-link:hover {
+  text-decoration: underline;
+}
+
+.wd-assignment-subtext {
+  font-size: 16px;
+  line-height: 1.2;
+  color: #111;
+}
+
+.wd-sub-red {
+  color: #d00000;
+}
+
+#wd-assignments .wd-assignment-item {
+  border-left: 4px solid green !important;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
