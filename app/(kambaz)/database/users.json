@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "U1",
+    "firstName": "Tony",
+    "lastName": "Stark",
+    "loginId": "001234561S",
+    "section": "S101",
+    "lastActivity": "2026-02-20",
+    "totalActivity": "10:21:32"
+  },
+  {
+    "_id": "U2",
+    "firstName": "Bruce",
+    "lastName": "Wayne",
+    "loginId": "001234562S",
+    "section": "S101",
+    "lastActivity": "2026-02-21",
+    "totalActivity": "08:11:10"
+  },
+  {
+    "_id": "U3",
+    "firstName": "Steve",
+    "lastName": "Rogers",
+    "loginId": "001234563S",
+    "section": "S101",
+    "lastActivity": "2026-02-19",
+    "totalActivity": "22:01:45"
+  },
+  {
+    "_id": "U4",
+    "firstName": "Natasha",
+    "lastName": "Romanoff",
+    "loginId": "001234564S",
+    "section": "S101",
+    "lastActivity": "2026-02-22",
+    "totalActivity": "35:44:02"
+  }
+]

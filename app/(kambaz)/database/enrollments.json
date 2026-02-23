@@ -1,0 +1,12 @@
+[
+  { "_id": "E1", "user": "U1", "course": "CS4550", "role": "STUDENT" },
+  { "_id": "E2", "user": "U2", "course": "CS4550", "role": "STUDENT" },
+  { "_id": "E3", "user": "U3", "course": "CS4550", "role": "TA" },
+  { "_id": "E4", "user": "U4", "course": "CS4550", "role": "FACULTY" },
+
+  { "_id": "E5", "user": "U1", "course": "DS4300", "role": "STUDENT" },
+  { "_id": "E6", "user": "U3", "course": "DS4300", "role": "TA" },
+
+  { "_id": "E7", "user": "U2", "course": "CS3200", "role": "STUDENT" },
+  { "_id": "E8", "user": "U4", "course": "CS3200", "role": "FACULTY" }
+]

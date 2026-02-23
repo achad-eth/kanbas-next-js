@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "CS4550",
+    "name": "WebDev",
+    "number": "CS4550",
+    "description": "OOga Booga",
+    "image": "/images/photo1.jpg"
+  },
+  {
+    "_id": "DS4300",
+    "name": "Data Science",
+    "number": "DS4300",
+    "description": "Data stuff",
+    "image": "/images/photo2.jpeg"
+  },
+  {
+    "_id": "CS3200",
+    "name": "Database Design",
+    "number": "CS3200",
+    "description": "Design em good!!!!!",
+    "image": "/images/photo1.jpg"
+  }
+]
