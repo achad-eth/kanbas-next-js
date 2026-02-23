@@ -1,0 +1,57 @@
+[
+  {
+    "_id": "A101",
+    "course": "CS4550",
+    "title": "A1: env setup + html",
+    "description": "install node, run npm",
+    "points": 100,
+    "dueDate": "2026-03-01",
+    "availableFrom": "2026-02-20",
+    "availableUntil": "2026-03-05",
+    "submissionType": "ONLINE"
+  },
+  {
+    "_id": "A102",
+    "course": "CS4550",
+    "title": "A2: routing n params ",
+    "description": "make pages, pass params",
+    "points": 100,
+    "dueDate": "2026-03-08",
+    "availableFrom": "2026-03-01",
+    "availableUntil": "2026-03-12",
+    "submissionType": "ONLINE"
+  },
+  {
+    "_id": "A103",
+    "course": "CS4550",
+    "title": "A3: data driven stuff",
+    "description": "move data into json, map it",
+    "points": 100,
+    "dueDate": "2026-03-15",
+    "availableFrom": "2026-03-08",
+    "availableUntil": "2026-03-20",
+    "submissionType": "ONLINE"
+  },
+  {
+    "_id": "A201",
+    "course": "DS4300",
+    "title": "HW1: data cleanin ",
+    "description": "remove nulls by accident",
+    "points": 50,
+    "dueDate": "2026-02-28",
+    "availableFrom": "2026-02-18",
+    "availableUntil": "2026-03-03",
+    "submissionType": "ONLINE"
+  },
+  {
+    "_id": "A301",
+    "course": "CS3200",
+    "title": "P1: sql joins:)",
+    "description": "inner join, left ",
+    "points": 75,
+    "dueDate": "2026-03-03",
+    "availableFrom": "2026-02-21",
+    "availableUntil": "2026-03-07",
+    "submissionType": "ONLINE"
+  }
+]

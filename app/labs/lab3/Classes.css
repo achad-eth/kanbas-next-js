@@ -1,0 +1,17 @@
+.wd-danger {
+  background-color: red;
+  color: white;
+  padding: 10px;
+}
+
+.wd-safe {
+  background-color: green;
+  color: white;
+  padding: 10px;
+}
+
+.wd-blue {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+}

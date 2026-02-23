@@ -1,0 +1,69 @@
+[
+  {
+    "_id": "M101",
+    "name": "Wek 1: intro-ish stuff lol",
+    "course": "CS4550",
+    "lessons": [
+      { "_id": "L101", "name": "welcome!!! (plz dont grade me)" },
+      { "_id": "L102", "name": "env setup" },
+      { "_id": "L103", "name": "next.js?? next" }
+    ]
+  },
+  {
+    "_id": "M102",
+    "name": "Wek 2: react basics kinda",
+    "course": "CS4550",
+    "lessons": [
+      { "_id": "L201", "name": "components" },
+      { "_id": "L202", "name": "props + state " },
+      { "_id": "L203", "name": "rerendering??" }
+    ]
+  },
+  {
+    "_id": "M103",
+    "name": "Wek 3: routing n stuff",
+    "course": "CS4550",
+    "lessons": [
+      { "_id": "L301", "name": "dynmaic routes (send help)" },
+      { "_id": "L302", "name": "params: cid, aid, idk anymore" }
+    ]
+  },
+
+  {
+    "_id": "M201",
+    "name": "Wek 1: data intro",
+    "course": "DS4300",
+    "lessons": [
+      { "_id": "D101", "name": "data sets? Data who? I don't even know her" },
+      { "_id": "D102", "name": "cleaning data = crying data" }
+    ]
+  },
+  {
+    "_id": "M202",
+    "name": "Wek 2: graphs n charts n math ",
+    "course": "DS4300",
+    "lessons": [
+      { "_id": "D201", "name": "vizualization " },
+      { "_id": "D202", "name": "regresion?? regression?? idk" }
+    ]
+  },
+
+  {
+    "_id": "M301",
+    "name": "Wek 1: SQL fundations",
+    "course": "CS3200",
+    "lessons": [
+      { "_id": "S101", "name": "relational model: tables on tables" },
+      { "_id": "S102", "name": ";" }
+    ]
+  },
+  {
+    "_id": "M302",
+    "name": "Week 2: joins",
+    "course": "CS3200",
+    "lessons": [
+      { "_id": "S201", "name": "inner join" },
+      { "_id": "S202", "name": "left join" }
+    ]
+  }
+]

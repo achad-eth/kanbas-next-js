@@ -1,7 +1,44 @@
+"use client";
+
 import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
+import { useParams } from "next/navigation";
+
+import * as db from "../../../../database";
+
+type User = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  loginId: string;
+  section: string;
+  lastActivity: string;
+  totalActivity: string;
+};
+
+type Enrollment = {
+  _id: string;
+  user: string;
+  course: string;
+  role: string;
+};
 
 export default function PeopleTable() {
+  const { cid } = useParams<{ cid: string }>();
+
+  const users = db.users as User[];
+  const enrollments = (db.enrollments as Enrollment[]).filter(
+    (e) => e.course === cid
+  );
+
+  const people = enrollments.map((e) => {
+    const user = users.find((u) => u._id === e.user);
+    return {
+      ...user,
+      role: e.role,
+    };
+  });
+
   return (
     <div id="wd-people-table">
       <Table striped>
@@ -17,57 +54,20 @@ export default function PeopleTable() {
         </thead>
 
         <tbody>
-          <tr>
-            <td className="wd-full-name text-nowrap">
-              <FaUserCircle className="me-2 fs-1 text-secondary" />
-              <span className="wd-first-name">Tony</span>{" "}
-              <span className="wd-last-name">Stark</span>
-            </td>
-            <td className="wd-login-id">001234561S</td>
-            <td className="wd-section">S101</td>
-            <td className="wd-role">STUDENT</td>
-            <td className="wd-last-activity">2020-10-01</td>
-            <td className="wd-total-activity">10:21:32</td>
-          </tr>
-
-          <tr>
-            <td className="wd-full-name text-nowrap">
-              <FaUserCircle className="me-2 fs-1 text-secondary" />
-              <span className="wd-first-name">Bruce</span>{" "}
-              <span className="wd-last-name">Wayne</span>
-            </td>
-            <td className="wd-login-id">001234562S</td>
-            <td className="wd-section">S101</td>
-            <td className="wd-role">STUDENT</td>
-            <td className="wd-last-activity">2020-10-02</td>
-            <td className="wd-total-activity">08:11:10</td>
-          </tr>
-
-          <tr>
-            <td className="wd-full-name text-nowrap">
-              <FaUserCircle className="me-2 fs-1 text-secondary" />
-              <span className="wd-first-name">Steve</span>{" "}
-              <span className="wd-last-name">Rogers</span>
-            </td>
-            <td className="wd-login-id">001234563S</td>
-            <td className="wd-section">S101</td>
-            <td className="wd-role">TA</td>
-            <td className="wd-last-activity">2020-09-29</td>
-            <td className="wd-total-activity">22:01:45</td>
-          </tr>
-
-          <tr>
-            <td className="wd-full-name text-nowrap">
-              <FaUserCircle className="me-2 fs-1 text-secondary" />
-              <span className="wd-first-name">Natasha</span>{" "}
-              <span className="wd-last-name">Romanoff</span>
-            </td>
-            <td className="wd-login-id">001234564S</td>
-            <td className="wd-section">S101</td>
-            <td className="wd-role">FACULTY</td>
-            <td className="wd-last-activity">2020-10-03</td>
-            <td className="wd-total-activity">35:44:02</td>
-          </tr>
+          {people.map((p) => (
+            <tr key={p?._id}>
+              <td className="wd-full-name text-nowrap">
+                <FaUserCircle className="me-2 fs-1 text-secondary" />
+                <span className="wd-first-name">{p?.firstName}</span>{" "}
+                <span className="wd-last-name">{p?.lastName}</span>
+              </td>
+              <td className="wd-login-id">{p?.loginId}</td>
+              <td className="wd-section">{p?.section}</td>
+              <td className="wd-role">{p?.role}</td>
+              <td className="wd-last-activity">{p?.lastActivity}</td>
+              <td className="wd-total-activity">{p?.totalActivity}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
