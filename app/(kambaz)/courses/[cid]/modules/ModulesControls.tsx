@@ -1,10 +1,24 @@
 "use client";
 
-import { Button, Dropdown } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Dropdown, Modal, FormControl } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa6";
 import GreenCheckmark from "./GreenCheckmark";
 
-export default function ModulesControls() {
+export default function ModulesControls({
+  moduleName,
+  setModuleName,
+  addModule,
+}: {
+  moduleName: string;
+  setModuleName: (title: string) => void;
+  addModule: () => void;
+}) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div id="wd-modules-controls" className="text-nowrap">
       <Button
@@ -12,6 +26,7 @@ export default function ModulesControls() {
         size="lg"
         className="me-1 float-end"
         id="wd-add-module-btn"
+        onClick={handleShow}
       >
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
         Module
@@ -25,18 +40,6 @@ export default function ModulesControls() {
         <Dropdown.Menu>
           <Dropdown.Item id="wd-publish-all">
             <GreenCheckmark /> Publish All
-          </Dropdown.Item>
-          <Dropdown.Item id="wd-publish-all-modules-and-items">
-            <GreenCheckmark /> Publish all modules and items
-          </Dropdown.Item>
-          <Dropdown.Item id="wd-publish-modules-only">
-            <GreenCheckmark /> Publish modules only
-          </Dropdown.Item>
-          <Dropdown.Item id="wd-unpublish-all-modules-and-items">
-            Unpublish all modules and items
-          </Dropdown.Item>
-          <Dropdown.Item id="wd-unpublish-modules-only">
-            Unpublish modules only
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -58,6 +61,34 @@ export default function ModulesControls() {
       >
         Collapse All
       </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Module</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <FormControl
+            value={moduleName}
+            onChange={(e) => setModuleName(e.target.value)}
+          />
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              addModule();
+              handleClose();
+            }}
+          >
+            Add Module
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
