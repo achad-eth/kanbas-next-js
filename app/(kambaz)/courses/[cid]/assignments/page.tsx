@@ -8,32 +8,22 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
-import { FaPlus } from "react-icons/fa6";
-import { FaSearch } from "react-icons/fa";
+import { FaPlus, FaSearch, FaTrash } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { BsGripVertical } from "react-icons/bs";
 import { MdOutlineAssignment } from "react-icons/md";
 import { useParams } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
 
-import * as db from "../../../database";
-
-type Assignment = {
-  _id: string;
-  course: string;
-  title: string;
-  description?: string;
-  points?: number;
-  dueDate?: string;
-  availableFrom?: string;
-  availableUntil?: string;
-};
+import { RootState } from "../../../store";
+import { deleteAssignment } from "./reducer";
 
 export default function AssignmentsPage() {
   const { cid } = useParams<{ cid: string }>();
-
-  const assignments = (db.assignments as Assignment[]).filter(
-    (a) => a.course === cid
+  const assignments = useSelector(
+    (state: RootState) => (state.assignmentsReducer as any).assignments
   );
+  const dispatch = useDispatch();
 
   return (
     <div id="wd-assignments">
@@ -51,10 +41,14 @@ export default function AssignmentsPage() {
             Group
           </Button>
 
-          <Button id="wd-add-assignment-btn" variant="danger" size="lg">
+          <Link
+            href={`/courses/${cid}/assignments/new`}
+            className="btn btn-danger btn-lg"
+            id="wd-add-assignment-btn"
+          >
             <FaPlus className="me-2" />
             Assignment
-          </Button>
+          </Link>
         </div>
       </div>
 
@@ -73,37 +67,48 @@ export default function AssignmentsPage() {
           </div>
         </ListGroupItem>
 
-        {assignments.map((a) => (
-          <ListGroupItem key={a._id} className="wd-assignment-row">
-            <div className="d-flex align-items-start">
-              <BsGripVertical className="me-3 mt-2 text-secondary" />
-              <MdOutlineAssignment className="me-3 mt-1 text-success fs-4" />
+        {assignments
+          .filter((a: any) => a.course === cid)
+          .map((a: any) => (
+            <ListGroupItem key={a._id} className="wd-assignment-row">
+              <div className="d-flex align-items-start">
+                <BsGripVertical className="me-3 mt-2 text-secondary" />
+                <MdOutlineAssignment className="me-3 mt-1 text-success fs-4" />
 
-              <div className="flex-fill">
-                <Link
-                  href={`/courses/${cid}/assignments/${a._id}`}
-                  className="wd-assignment-link"
-                >
-                  {a.title}
-                </Link>
+                <div className="flex-fill">
+                  <Link
+                    href={`/courses/${cid}/assignments/${a._id}`}
+                    className="wd-assignment-link"
+                  >
+                    {a.title}
+                  </Link>
 
-                <div className="wd-assignment-subtext">
-                  <span className="wd-sub-red fw-bold">Multiple Modules</span>
-                  <span className="mx-2">|</span>
-                  <span className="fw-bold">
-                    Not available until {a.availableFrom || "idk"}
-                  </span>
-                  <br />
-                  <span className="fw-bold">Due {a.dueDate || "TBD"}</span>
-                  <span className="mx-2">|</span>
-                  <span className="fw-bold">{a.points ?? 100} pts</span>
+                  <div className="wd-assignment-subtext">
+                    <span className="wd-sub-red fw-bold">Multiple Modules</span>
+                    <span className="mx-2">|</span>
+                    <span className="fw-bold">
+                      Not available until {a.availableFrom || "TBD"}
+                    </span>
+                    <br />
+                    <span className="fw-bold">Due {a.dueDate || "TBD"}</span>
+                    <span className="mx-2">|</span>
+                    <span className="fw-bold">{a.points ?? 100} pts</span>
+                  </div>
                 </div>
-              </div>
 
-              <IoEllipsisVertical className="fs-4 mt-2 text-secondary" />
-            </div>
-          </ListGroupItem>
-        ))}
+                <FaTrash
+                  className="text-danger mt-2 me-2"
+                  onClick={() => {
+                    const ok = window.confirm("Delete this assignment?");
+                    if (ok) {
+                      dispatch(deleteAssignment(a._id));
+                    }
+                  }}
+                />
+                <IoEllipsisVertical className="fs-4 mt-2 text-secondary" />
+              </div>
+            </ListGroupItem>
+          ))}
       </ListGroup>
     </div>
   );
