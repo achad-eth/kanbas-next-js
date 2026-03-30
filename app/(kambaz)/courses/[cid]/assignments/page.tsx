@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import {
   Button,
   FormControl,
@@ -16,7 +17,8 @@ import { useParams } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 
 import { RootState } from "../../../store";
-import { deleteAssignment } from "./reducer";
+import { deleteAssignment, setAssignments } from "./reducer";
+import * as client from "./client";
 
 export default function AssignmentsPage() {
   const { cid } = useParams<{ cid: string }>();
@@ -24,6 +26,19 @@ export default function AssignmentsPage() {
     (state: RootState) => (state.assignmentsReducer as any).assignments
   );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const loadAssignments = async () => {
+      const data = await client.fetchAssignments(cid);
+      dispatch(setAssignments(data));
+    };
+    loadAssignments();
+  }, [cid, dispatch]);
+
+  const removeAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
 
   return (
     <div id="wd-assignments">
@@ -101,7 +116,7 @@ export default function AssignmentsPage() {
                   onClick={() => {
                     const ok = window.confirm("Delete this assignment?");
                     if (ok) {
-                      dispatch(deleteAssignment(a._id));
+                      removeAssignment(a._id);
                     }
                   }}
                 />
