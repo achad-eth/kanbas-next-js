@@ -4,25 +4,24 @@ import Link from "next/link";
 import { FormControl, Button } from "react-bootstrap";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
-
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../reducer";
+import * as client from "../client";
 
 export default function Signin() {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
+
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const signin = async () => {
     try {
-      await axios.post(
-        `${HTTP_SERVER}/api/users/signin`,
-        credentials,
-        { withCredentials: true }
-      );
-      router.push("/account/profile");
+      const user = await client.signin(credentials); // <-- IMPORTANT
+      dispatch(setCurrentUser(user));                // <-- SAVE USER
+      router.push("/dashboard");                     // <-- go somewhere real
     } catch (error) {
       console.error(error);
       alert("Invalid username or password");
