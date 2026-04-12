@@ -27,6 +27,7 @@ type Enrollment = {
 
 export default function Dashboard() {
   const [courses, setCourses] = useState<Course[]>([]);
+  const [myCourses, setMyCourses] = useState<Course[]>([]);
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [course, setCourse] = useState<Course>({
     _id: "",
@@ -41,11 +42,24 @@ export default function Dashboard() {
   const fetchData = async () => {
     try {
       const allCourses = await client.fetchAllCourses();
-      const currentEnrollments = await client.fetchEnrollments();
       setCourses(allCourses);
+    } catch (error) {
+      console.error("Unable to fetch all courses", error);
+      setCourses([]);
+    }
+
+    try {
+      const mine = await client.findMyCourses();
+      setMyCourses(mine);
+    } catch (error) {
+      setMyCourses([]);
+    }
+
+    try {
+      const currentEnrollments = await client.fetchEnrollments();
       setEnrollments(currentEnrollments);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      setEnrollments([]);
     }
   };
 
@@ -57,41 +71,86 @@ export default function Dashboard() {
     return enrollments.some((enrollment) => enrollment.course === courseId);
   };
 
+  const resetCourseForm = () => {
+    setCourse({
+      _id: "",
+      name: "New Course",
+      number: "New Number",
+      startDate: "2023-09-10",
+      endDate: "2023-12-15",
+      image: "/images/photo1.jpg",
+      description: "New Description",
+    });
+  };
+
   const addNewCourse = async () => {
-    const newCourse = await client.createCourse(course);
-    setCourses([...courses, newCourse]);
-    fetchData();
+    try {
+      const newCourse = await client.createCourse(course);
+      setCourses([...courses, newCourse]);
+      setMyCourses([...myCourses, newCourse]);
+      resetCourseForm();
+      await fetchData();
+    } catch (error) {
+      console.error("Unable to create course", error);
+      alert("You must be signed in to create a course.");
+    }
   };
 
   const deleteCourse = async (courseId: string) => {
-    await client.deleteCourse(courseId);
-    setCourses(courses.filter((c) => c._id !== courseId));
-    setEnrollments(enrollments.filter((e) => e.course !== courseId));
+    try {
+      await client.deleteCourse(courseId);
+      setCourses(courses.filter((c) => c._id !== courseId));
+      setMyCourses(myCourses.filter((c) => c._id !== courseId));
+      setEnrollments(enrollments.filter((e) => e.course !== courseId));
+    } catch (error) {
+      console.error("Unable to delete course", error);
+      alert("Unable to delete course.");
+    }
   };
 
   const updateCourse = async () => {
-    await client.updateCourse(course);
-    setCourses(
-      courses.map((c) => {
-        if (c._id === course._id) {
-          return course;
-        }
-        return c;
-      })
-    );
+    if (!course._id) {
+      alert("Select a course to edit first.");
+      return;
+    }
+
+    try {
+      const updatedCourse = await client.updateCourse(course);
+
+      setCourses(
+        courses.map((c) => (c._id === updatedCourse._id ? updatedCourse : c))
+      );
+
+      setMyCourses(
+        myCourses.map((c) => (c._id === updatedCourse._id ? updatedCourse : c))
+      );
+
+      resetCourseForm();
+    } catch (error) {
+      console.error("Unable to update course", error);
+      alert("Unable to update course.");
+    }
   };
 
   const enroll = async (courseId: string) => {
-    await client.enrollInCourse(courseId);
-    fetchData();
+    try {
+      await client.enrollInCourse(courseId);
+      await fetchData();
+    } catch (error) {
+      console.error("Unable to enroll", error);
+      alert("You must be signed in to enroll.");
+    }
   };
 
   const unenroll = async (courseId: string) => {
-    await client.unenrollFromCourse(courseId);
-    fetchData();
+    try {
+      await client.unenrollFromCourse(courseId);
+      await fetchData();
+    } catch (error) {
+      console.error("Unable to unenroll", error);
+      alert("Unable to unenroll.");
+    }
   };
-
-  const enrolledCourses = courses.filter((course) => isEnrolled(course._id));
 
   return (
     <div className="p-4" id="wd-dashboard">
@@ -125,22 +184,49 @@ export default function Dashboard() {
       />
 
       <FormControl
+        className="mb-2"
+        value={course.number || ""}
+        onChange={(e) => setCourse({ ...course, number: e.target.value })}
+      />
+
+      <FormControl
         as="textarea"
         rows={3}
+        className="mb-2"
         value={course.description || ""}
         onChange={(e) => setCourse({ ...course, description: e.target.value })}
+      />
+
+      <FormControl
+        className="mb-2"
+        value={course.image || ""}
+        onChange={(e) => setCourse({ ...course, image: e.target.value })}
+      />
+
+      <FormControl
+        type="date"
+        className="mb-2"
+        value={course.startDate || ""}
+        onChange={(e) => setCourse({ ...course, startDate: e.target.value })}
+      />
+
+      <FormControl
+        type="date"
+        className="mb-2"
+        value={course.endDate || ""}
+        onChange={(e) => setCourse({ ...course, endDate: e.target.value })}
       />
 
       <hr />
 
       <h2 id="wd-dashboard-published">
-        Published Courses ({enrolledCourses.length})
+        Published Courses ({myCourses.length})
       </h2>
       <hr />
 
       <div id="wd-dashboard-courses">
         <Row xs={1} md={5} className="g-4">
-          {enrolledCourses.map((c) => (
+          {myCourses.map((c) => (
             <Col key={c._id} style={{ width: "300px" }}>
               <Card>
                 <Link
