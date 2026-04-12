@@ -20,8 +20,37 @@ export default function WorkingWithObjects() {
       <a
         className="btn btn-primary me-2"
         href={`${HTTP_SERVER}/lab5/assignment`}
+        target="_blank"
+        rel="noreferrer"
       >
         Get Assignment
+      </a>
+
+      <a
+        className="btn btn-secondary me-2"
+        href={`${HTTP_SERVER}/lab5/assignment/title`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Get Title
+      </a>
+
+      <a
+        className="btn btn-info me-2"
+        href={`${HTTP_SERVER}/lab5/module`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Get Module
+      </a>
+
+      <a
+        className="btn btn-dark"
+        href={`${HTTP_SERVER}/lab5/module/name`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Get Module Name
       </a>
 
       <hr />
@@ -30,6 +59,8 @@ export default function WorkingWithObjects() {
       <a
         className="btn btn-primary float-end"
         href={`${HTTP_SERVER}/lab5/assignment/title/${assignment.title}`}
+        target="_blank"
+        rel="noreferrer"
       >
         Update Title
       </a>
@@ -47,6 +78,8 @@ export default function WorkingWithObjects() {
       <a
         className="btn btn-success float-end"
         href={`${HTTP_SERVER}/lab5/assignment/score/${assignment.score}`}
+        target="_blank"
+        rel="noreferrer"
       >
         Update Score
       </a>
@@ -55,7 +88,10 @@ export default function WorkingWithObjects() {
         type="number"
         value={assignment.score}
         onChange={(e) =>
-          setAssignment({ ...assignment, score: parseInt(e.target.value) || 0 })
+          setAssignment({
+            ...assignment,
+            score: parseInt(e.target.value) || 0,
+          })
         }
       />
 
@@ -65,6 +101,8 @@ export default function WorkingWithObjects() {
       <a
         className="btn btn-warning me-2"
         href={`${HTTP_SERVER}/lab5/assignment/completed/${assignment.completed}`}
+        target="_blank"
+        rel="noreferrer"
       >
         Update Completed
       </a>

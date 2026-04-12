@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:4000/api";
+const API = `${process.env.NEXT_PUBLIC_HTTP_SERVER || "http://localhost:4000"}/api`;
 
 export const fetchAssignments = async (cid: string) => {
   const response = await axios.get(`${API}/courses/${cid}/assignments`);

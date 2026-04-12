@@ -19,6 +19,9 @@ export default function LabsHome() {
         <li>
           <Link href="/labs/lab4">Lab 4</Link>
         </li>
+        <li>
+          <Link href="/labs/lab5">Lab 5</Link>
+        </li>
       </ul>
 
       <hr />

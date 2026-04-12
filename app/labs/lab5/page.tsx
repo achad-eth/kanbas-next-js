@@ -16,6 +16,8 @@ export default function Lab5() {
         <a
           href={`${HTTP_SERVER}/lab5/welcome`}
           className="list-group-item"
+          target="_blank"
+          rel="noreferrer"
         >
           Welcome
         </a>
@@ -26,8 +28,7 @@ export default function Lab5() {
       <PathParameters />
       <QueryParameters />
       <WorkingWithObjects />
+      <WorkingWithArrays />
     </div>
   );
 }
-
-<WorkingWithArrays />
