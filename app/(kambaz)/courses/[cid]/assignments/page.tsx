@@ -25,7 +25,11 @@ export default function AssignmentsPage() {
   const assignments = useSelector(
     (state: RootState) => (state.assignmentsReducer as any).assignments
   );
+  const currentUser = useSelector(
+    (state: RootState) => (state.accountReducer as any).currentUser
+  );
   const dispatch = useDispatch();
+  const canEdit = currentUser?.role !== "STUDENT";
 
   useEffect(() => {
     const loadAssignments = async () => {
@@ -50,21 +54,23 @@ export default function AssignmentsPage() {
           <FormControl id="wd-search-assignment" placeholder="Search" />
         </InputGroup>
 
-        <div className="d-flex gap-2">
-          <Button id="wd-add-group-btn" variant="secondary" size="lg">
-            <FaPlus className="me-2" />
-            Group
-          </Button>
+        {canEdit && (
+          <div className="d-flex gap-2">
+            <Button id="wd-add-group-btn" variant="secondary" size="lg">
+              <FaPlus className="me-2" />
+              Group
+            </Button>
 
-          <Link
-            href={`/courses/${cid}/assignments/new`}
-            className="btn btn-danger btn-lg"
-            id="wd-add-assignment-btn"
-          >
-            <FaPlus className="me-2" />
-            Assignment
-          </Link>
-        </div>
+            <Link
+              href={`/courses/${cid}/assignments/new`}
+              className="btn btn-danger btn-lg"
+              id="wd-add-assignment-btn"
+            >
+              <FaPlus className="me-2" />
+              Assignment
+            </Link>
+          </div>
+        )}
       </div>
 
       <ListGroup className="rounded-0" id="wd-assignments-list">
@@ -74,7 +80,6 @@ export default function AssignmentsPage() {
               <BsGripVertical className="me-3 fs-4 text-secondary" />
               <span>ASSIGNMENTS</span>
             </div>
-
             <div className="d-flex align-items-center">
               <span className="me-3">40% of Total</span>
               <IoEllipsisVertical className="fs-4" />
@@ -91,12 +96,16 @@ export default function AssignmentsPage() {
                 <MdOutlineAssignment className="me-3 mt-1 text-success fs-4" />
 
                 <div className="flex-fill">
-                  <Link
-                    href={`/courses/${cid}/assignments/${a._id}`}
-                    className="wd-assignment-link"
-                  >
-                    {a.title}
-                  </Link>
+                  {canEdit ? (
+                    <Link
+                      href={`/courses/${cid}/assignments/${a._id}`}
+                      className="wd-assignment-link"
+                    >
+                      {a.title}
+                    </Link>
+                  ) : (
+                    <span className="wd-assignment-link">{a.title}</span>
+                  )}
 
                   <div className="wd-assignment-subtext">
                     <span className="wd-sub-red fw-bold">Multiple Modules</span>
@@ -111,15 +120,16 @@ export default function AssignmentsPage() {
                   </div>
                 </div>
 
-                <FaTrash
-                  className="text-danger mt-2 me-2"
-                  onClick={() => {
-                    const ok = window.confirm("Delete this assignment?");
-                    if (ok) {
-                      removeAssignment(a._id);
-                    }
-                  }}
-                />
+                {canEdit && (
+                  <FaTrash
+                    className="text-danger mt-2 me-2"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      const ok = window.confirm("Delete this assignment?");
+                      if (ok) removeAssignment(a._id);
+                    }}
+                  />
+                )}
                 <IoEllipsisVertical className="fs-4 mt-2 text-secondary" />
               </div>
             </ListGroupItem>
